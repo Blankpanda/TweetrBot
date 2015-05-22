@@ -1,0 +1,11 @@
+ /* twitter bot credentials
+  * Name: Test Bot
+  * Email: blp2*@.
+  * Password: the usual
+  * login name: testbot64291131 */
+  
+  https://apps.twitter.com/
+  http://www.apcoder.com/2013/10/03/twitter-bot-20-minutes-node-js/
+  Install NODE.js
+  
+http://www.apcoder.com/2013/10/15/targeted-twitter-bots-next-20-minutes/
