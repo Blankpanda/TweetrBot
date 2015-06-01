@@ -19,7 +19,7 @@ namespace gatheringstringdatafromadoc
             changeFileExtension(path, ".zip");           // we need to convert this docx file to a ZIP.
             path = getFilesInDirectory(".zip");         // search for the zip file
             extractor(path, "XMLdata");                // extract the newly created zip if nessecary
-            string readData = readXmlData();        // read the XML data in the zip file (from converting a docx file to a zip)
+            string readData = readXmlData();          // read the XML data in the zip file (from converting a docx file to a zip)
            
            Console.WriteLine(readData);
            Console.ReadLine();
@@ -93,7 +93,7 @@ namespace gatheringstringdatafromadoc
         private static string readTxtFile(string path)
         {
 
-          /*read the wirtten file if nesecary */
+            /*read the wirtten file if nesecary */
             try
             {
                 StreamReader reader = new StreamReader(path);
