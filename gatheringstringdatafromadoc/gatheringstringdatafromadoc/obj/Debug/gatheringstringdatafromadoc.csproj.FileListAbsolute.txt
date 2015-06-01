@@ -5,3 +5,9 @@ C:\Users\CalebsComp\Documents\Visual Studio 2013\Projects\CS\gatheringstringdata
 C:\Users\CalebsComp\Documents\Visual Studio 2013\Projects\CS\gatheringstringdatafromadoc\gatheringstringdatafromadoc\obj\Debug\gatheringstringdatafromadoc.csprojResolveAssemblyReference.cache
 C:\Users\CalebsComp\Documents\Visual Studio 2013\Projects\CS\gatheringstringdatafromadoc\gatheringstringdatafromadoc\obj\Debug\gatheringstringdatafromadoc.exe
 C:\Users\CalebsComp\Documents\Visual Studio 2013\Projects\CS\gatheringstringdatafromadoc\gatheringstringdatafromadoc\obj\Debug\gatheringstringdatafromadoc.pdb
+C:\Users\Cellis\Desktop\TweetrBot\gatheringstringdatafromadoc\gatheringstringdatafromadoc\bin\Debug\gatheringstringdatafromadoc.exe.config
+C:\Users\Cellis\Desktop\TweetrBot\gatheringstringdatafromadoc\gatheringstringdatafromadoc\obj\Debug\gatheringstringdatafromadoc.exe
+C:\Users\Cellis\Desktop\TweetrBot\gatheringstringdatafromadoc\gatheringstringdatafromadoc\obj\Debug\gatheringstringdatafromadoc.pdb
+C:\Users\Cellis\Desktop\TweetrBot\gatheringstringdatafromadoc\gatheringstringdatafromadoc\bin\Debug\gatheringstringdatafromadoc.exe
+C:\Users\Cellis\Desktop\TweetrBot\gatheringstringdatafromadoc\gatheringstringdatafromadoc\bin\Debug\gatheringstringdatafromadoc.pdb
+C:\Users\Cellis\Desktop\TweetrBot\gatheringstringdatafromadoc\gatheringstringdatafromadoc\obj\Debug\gatheringstringdatafromadoc.csprojResolveAssemblyReference.cache
