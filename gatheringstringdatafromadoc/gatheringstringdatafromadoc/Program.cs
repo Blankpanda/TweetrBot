@@ -19,9 +19,9 @@ namespace gatheringstringdatafromadoc
             changeFileExtension(path, ".zip");           // we need to convert this docx file to a ZIP.
             path = getFilesInDirectory(".zip");         // search for the zip file
             extractor(path, "XMLdata");                // extract the newly created zip if nessecary
-            string readData = readXmlData();          // read the XML data in the zip file (from converting a docx file to a zip)
+            readXmlData();          // read the XML data in the zip file (from converting a docx file to a zip)
            
-           Console.WriteLine(readData);
+         //  Console.WriteLine(readData);
            Console.ReadLine();
         }
 
@@ -51,23 +51,27 @@ namespace gatheringstringdatafromadoc
 
         }
 
-        private static dynamic readXmlData()
+        private static void readXmlData()
         {
 
-            string r = readTxtFile(@"XMLdata\word\document.xml");
+            string docPath = @"XMLdata\word\document.xml";
             StringBuilder output = new StringBuilder();
 
-            using( XmlReader reader = XmlReader.Create( new StringReader(r) ) ) 
+            // parse XML elements
+            using( XmlReader reader = XmlReader.Create( docPath ) ) 
             {
-                reader.ReadToFollowing("w:r");
-                reader.MoveToFirstAttribute();
-                string word = reader.Value;
 
-                output.AppendLine(word);
+                while ( reader.Read() )
+                {
+                    if (reader.HasValue == true)
+                    {
+                        Console.WriteLine(reader.Value);
+                    }
+                }
 
-                return output.ToString();
+
             }
-
+            
         }
 
         private static string writeTxtFile(string path)
