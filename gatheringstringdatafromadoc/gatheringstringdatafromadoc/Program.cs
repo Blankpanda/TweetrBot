@@ -13,15 +13,16 @@ namespace gatheringstringdatafromadoc
     {
         static void Main(string[] args)
         {
-           // changeFileExtension(@"Testing.zip", ".docx");
+          //  changeFileExtension(@"Testing.zip", ".docx");
 
-            string path = getFilesInDirectory(".docx");   // search working directory and retrieve the path of any Docx file
-            changeFileExtension(path, ".zip");           // we need to convert this docx file to a ZIP.
-            path = getFilesInDirectory(".zip");         // search for the zip file
-            extractor(path, "XMLdata");                // extract the newly created zip if nessecary
-            readXmlData();          // read the XML data in the zip file (from converting a docx file to a zip)
-           
-         //  Console.WriteLine(readData);
+             string path = getFilesInDirectory(".docx");   // search working directory and retrieve the path of any Docx file.
+             changeFileExtension(path, ".zip");           // we need to convert this docx file to a ZIP.
+             path = getFilesInDirectory(".zip");         // search for the zip file.
+             extractor(path, "XMLdata");                // extract the newly created zip if nessecary.
+             string output = readXmlData();            // read the XML data in the zip file (from converting a docx file to a zip).
+             writeTxtFile("parsedXML.txt", output);   // write output to a text file.
+            
+           Console.WriteLine(output);
            Console.ReadLine();
         }
 
@@ -50,14 +51,13 @@ namespace gatheringstringdatafromadoc
             return path;
 
         }
-
-        private static void readXmlData()
+        private static dynamic readXmlData()
         {
 
             string docPath = @"XMLdata\word\document.xml";
             StringBuilder output = new StringBuilder();
 
-            // parse XML elements
+            // parse XML elements and builds a string based on the reader
             using( XmlReader reader = XmlReader.Create( docPath ) ) 
             {
 
@@ -65,23 +65,35 @@ namespace gatheringstringdatafromadoc
                 {
                     if (reader.HasValue == true)
                     {
-                        Console.WriteLine(reader.Value);
+                        output.AppendLine(reader.Value);
                     }
                 }
 
 
             }
-            
+
+            return output.ToString(); 
+
         }
 
-        private static string writeTxtFile(string path)
+        private static void writeTxtFile(string name , string content)
         {
 
             try
             {
+                string pathCheck = getFilesInDirectory(".txt"); //check to see if the working directory already contains a extractedXML.txt file
 
-                StreamWriter w = new StreamWriter(path);
-               /* place XML data in a data structure and write to this */
+                if (pathCheck.Contains("parsedXML.txt"))
+                { Console.WriteLine("parsedXML.txt already exists (nothing to write)"); }
+                else
+                {
+                    StreamWriter w = new StreamWriter(name);
+                    /* place XML data in a data structure and write to this */
+                    w.WriteLine(content);
+                    w.Close();
+                }
+
+
 
             }
             catch (Exception)
@@ -91,7 +103,7 @@ namespace gatheringstringdatafromadoc
                
             }
 
-            return null;
+            
 
         }
         private static string readTxtFile(string path)
@@ -118,7 +130,14 @@ namespace gatheringstringdatafromadoc
 
             try
             {
-                ZipFile.ExtractToDirectory(zipPath, newPath);
+                string checkPath = getFilesInDirectory(".zip");
+                if ( checkPath.Contains("XMLdata") )
+                { Console.WriteLine("File already extracted, moving along"); }
+                else
+                {
+                    ZipFile.ExtractToDirectory(zipPath, newPath);
+                }
+                       
             }
             catch (Exception)
             {
