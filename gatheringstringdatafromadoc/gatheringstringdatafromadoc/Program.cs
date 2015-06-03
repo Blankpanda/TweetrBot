@@ -87,10 +87,15 @@ namespace gatheringstringdatafromadoc
                 { Console.WriteLine("parsedXML.txt already exists (nothing to write)"); }
                 else
                 {
-                    StreamWriter w = new StreamWriter(name);
-                    /* place XML data in a data structure and write to this */
-                    w.WriteLine(content);
-                    w.Close();
+                    // removes the XML header and spaces
+                    if (! (content.Contains("version=1.0 encoding=UTF-8 standalone=yes")) )
+                    {
+                        StreamWriter w = new StreamWriter(name);
+                        /* place XML data in a data structure and write to this */
+                        w.WriteLine(content);
+                        w.Close();
+                    }
+                 
                 }
 
 
