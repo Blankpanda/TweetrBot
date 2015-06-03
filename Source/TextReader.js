@@ -6,6 +6,6 @@ exports.data = function(file) {
 
 var lines = fs.readFileSync(file).toString().split("\n");
 
-    return lines.join("");
+    return lines.join(" ");
     
 };
