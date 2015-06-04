@@ -20,11 +20,16 @@ namespace gatheringstringdatafromadoc
              path = getFilesInDirectory(".zip");         // search for the zip file.
              extractor(path, "XMLdata");                // extract the newly created zip if nessecary.
              string output = readXmlData();            // read the XML data in the zip file (from converting a docx file to a zip).
-             writeTxtFile("parsedXML.txt", output);   // write output to a text file.
+             writeTxtFile("parsedXML.txt", output);   // write raw output to a text file.
+             getFilesInDirectory(".txt");            // 
+             output = readTxtFile(path);            // rewrites the output to the console.
+             
             
+          
            Console.WriteLine(output);
            Console.ReadLine();
         }
+
 
         private static string getFilesInDirectory(string type)
         {
@@ -43,6 +48,7 @@ namespace gatheringstringdatafromadoc
             {
                 if (files[i].ToString().Contains(type))
                 {
+                    
                     path = files[i].FullName.ToString();
                     break;
                 }
@@ -75,27 +81,24 @@ namespace gatheringstringdatafromadoc
             return output.ToString(); 
 
         }
-
         private static void writeTxtFile(string name , string content)
         {
-
+            string pathCheck = getFilesInDirectory(".txt"); //check to see if the working directory already contains a extractedXML.txt file
             try
             {
-                string pathCheck = getFilesInDirectory(".txt"); //check to see if the working directory already contains a extractedXML.txt file
 
-                if (pathCheck.Contains("parsedXML.txt"))
+                content = content.Replace("version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"", String.Empty);
+
+
+                if (pathCheck.Contains(name))
                 { Console.WriteLine("parsedXML.txt already exists (nothing to write)"); }
+
                 else
-                {
-                    // removes the XML header and spaces
-                    if (! (content.Contains("version=1.0 encoding=UTF-8 standalone=yes")) )
-                    {
-                        StreamWriter w = new StreamWriter(name);
-                        /* place XML data in a data structure and write to this */
-                        w.WriteLine(content);
-                        w.Close();
-                    }
-                 
+                {         
+                      StreamWriter w = new StreamWriter(name);
+                    
+                      w.WriteLine(content);
+                      w.Close();
                 }
 
 
@@ -129,7 +132,6 @@ namespace gatheringstringdatafromadoc
             }
 
         }
-
         private static void extractor(string zipPath , string newPath)
         {
 

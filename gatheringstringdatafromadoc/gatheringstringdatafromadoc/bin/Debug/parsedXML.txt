@@ -1,6 +1,5 @@
-version="1.0" encoding="UTF-8" standalone="yes"
 
 
-There once was a man named Ike
-He liked to ride on his bike. 
+
+resident
 
