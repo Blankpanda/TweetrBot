@@ -21,13 +21,48 @@ namespace gatheringstringdatafromadoc
              extractor(path, "XMLdata");                // extract the newly created zip if nessecary.
              string output = readXmlData();            // read the XML data in the zip file (from converting a docx file to a zip).
              writeTxtFile("parsedXML.txt", output);   // write raw output to a text file.
-             getFilesInDirectory(".txt");            // 
-             output = readTxtFile(path);            // rewrites the output to the console.
+             formatLunchDoc("parsedXML.txt");
              
-            
-          
-           Console.WriteLine(output);
+           Console.WriteLine();
            Console.ReadLine();
+        }
+
+        private static void formatLunchDoc(string content)
+        {
+           List<string> contentList = new List<string>();
+           StreamReader reader = new StreamReader(content);
+           string readBuffer = string.Empty;
+           
+
+            // turns the string that held the read text file and makes a list of each of its lines
+           while (true) 
+           {
+               readBuffer = reader.ReadLine();
+               contentList.Add(readBuffer);
+
+               if (reader.EndOfStream)
+               {
+                   reader.Close();
+                   break;
+               }
+           }
+
+            // removes the header of the list 
+           for (int i = 0; i <= 5; i++)
+           {
+               contentList.RemoveAt(0);
+           }
+            
+
+
+
+
+           for (int i = 0; i < contentList.Count; i++) // output the list
+           
+           {
+               Console.WriteLine(contentList[i]);
+           }
+
         }
 
 
