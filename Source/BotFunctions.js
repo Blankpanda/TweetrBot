@@ -1,6 +1,6 @@
 var Twit = require('./node_modules/twit/lib/twitter');
 var txtFileReader = require('./TextReader.js');
-var xmlFileAsText = 'parsedXML.txt'
+var xmlFileAsText = 'FRIDAY.txt'
 
 var T = new Twit({
     consumer_key:        'n53YwKakvyVGjDgDqbcxN4AlG'

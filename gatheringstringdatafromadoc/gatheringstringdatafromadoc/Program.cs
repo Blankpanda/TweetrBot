@@ -27,76 +27,96 @@ namespace gatheringstringdatafromadoc
            Console.ReadLine();
         }
 
+        #region --lunch DOC--
+
+
         private static void formatLunchDoc(string content)
         {
-           List<string> contentList = new List<string>();
-           StreamReader reader = new StreamReader(content);
-           string readBuffer = string.Empty;
-           
+            List<string> contentList = new List<string>();
+            StreamReader reader = new StreamReader(content);
+            string readBuffer = string.Empty;
+
 
             // turns the string that held the read text file and makes a list of each of its lines
-           while (true) 
-           {
-               readBuffer = reader.ReadLine();
-               contentList.Add(readBuffer);
+            while (true)
+            {
+                readBuffer = reader.ReadLine();
+                contentList.Add(readBuffer);
 
-               if (reader.EndOfStream)
-               {
-                   reader.Close();
-                   break;
-               }
-           }
+                if (reader.EndOfStream)
+                {
+                    reader.Close();
+                    break;
+                }
+            }
 
             // removes the header of the list 
             for (int i = 0; i <= 5; i++)
-             {
-                   contentList.RemoveAt(0);
-             }
-            
+            {
+                contentList.RemoveAt(0);
+            }
+
             // seperates monday, tuesday, wednesday, thursday and friday into different text files.
-            string[] dayData = new string[4];
+            string[] dayData = new string[5];
             StringBuilder sb = new StringBuilder();
 
-            List<string> DaysOfTheWeek = new List<string>();    
+            List<string> DaysOfTheWeek = new List<string>();
             DaysOfTheWeek = initalizeDaysOfTheWeekList(DaysOfTheWeek);  // hurrdur my verbose language is the best
             DaysOfTheWeek.Remove("MONDAY");
 
+
             int counter = 0;
+            
+
             for (int i = 0; i <= contentList.Count; i++)
             {
-                // I really want to refactor this
-               
-              // //@doesn't work, but I have an idea on what I need to fix    
-                        //dayData[counter] = sb.AppendLine(contentList[i] + " ").ToString();
+                //cover exception when  list is empty, we need to add friday back to the list.
+                if (DaysOfTheWeek.Count == 0)
+                {
+                    DaysOfTheWeek.Add("FRIDAY");
+                }
 
-                
-                        //if (contentList[i].Contains(DaysOfTheWeek[counter]))
-                        //{
-                            
-                        //        counter++;
-                        //        DaysOfTheWeek.RemoveAt(0);
-                        //        sb.Clear();           
-                        //}
+                //  I really want to refactor this
+                if (contentList[i].Contains(DaysOfTheWeek[0]))
+                {                 
+                    counter++;
+                    DaysOfTheWeek.RemoveAt(0);
+                    sb.Clear();
+                }
 
+                try
+                {
+                    dayData[counter] = sb.AppendLine(contentList[i] + " ").ToString();         
+                }
+                catch (Exception)
+                {
+                    sb.Clear();
+                     break;   
+                    
+                }
                  
-                
             }
+
+            // we need to specifically remove the footing information from the friday textfile.
+
+            // create a directory to hold all of the new files
+            Directory.CreateDirectory(@"Days");
 
             DaysOfTheWeek = initalizeDaysOfTheWeekList(DaysOfTheWeek);
             // write all to seperate files
-            for (int i = 0; i <= dayData.Length; i++)
+
+            for (int i = 0; i < dayData.Length; i++)
             {
-                writeTxtFile(DaysOfTheWeek[i], dayData[i]);
+               writeTxtFile(@"Days\" + DaysOfTheWeek[i] + ".txt", dayData[i]);
             }
 
-            Console.WriteLine(dayData[0]);
-    
-        }
+            
 
-       
+        }
         private static List<string> initalizeDaysOfTheWeekList(List<string> DaysOfTheWeek)
         {
             //mainily because we need to remove the elements and then use it again after we've removed the elements
+            DaysOfTheWeek.Clear();
             DaysOfTheWeek.Add("MONDAY");
             DaysOfTheWeek.Add("TUESDAY");
             DaysOfTheWeek.Add("WEDNESDAY");
@@ -104,9 +124,24 @@ namespace gatheringstringdatafromadoc
             DaysOfTheWeek.Add("FRIDAY");
 
             return DaysOfTheWeek;
-            
+
         }
 
+       private static bool isEmptyList(List<string> l )
+        {
+            if (l.Contains(string.Empty))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+        #endregion
+        
 
         private static string getFilesInDirectory(string type)
         {
