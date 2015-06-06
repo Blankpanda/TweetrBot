@@ -98,6 +98,23 @@ namespace gatheringstringdatafromadoc
             }
 
             // we need to specifically remove the footing information from the friday textfile.
+            char[] cDayData = dayData[4].ToCharArray();
+            // gets the length of the array up to a certain character
+            int subStrCounter = 0;
+            for (int i = 0; i < cDayData.Length - 1 ; i++)
+            {
+                if (cDayData[i] != '*')
+                {
+                    subStrCounter++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            // assigns a substring of DayData[4] to DayData[4]
+            dayData[4] = dayData[4].Substring(0, subStrCounter);
+
 
             // create a directory to hold all of the new files
             Directory.CreateDirectory(@"Days");
