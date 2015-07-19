@@ -99,8 +99,7 @@ namespace gatheringstringdatafromadoc
             }
 
             // we need to specifically remove the footing information from the friday textfile.
-            int subStrCounter = 
-                SeperateString(dayData[4], '*');
+            int subStrCounter = CountToConditon(dayData[4], '*');
            
             // assigns a substring of DayData[4] to DayData[4]
             dayData[4] = dayData[4].Substring(0, subStrCounter);
@@ -131,9 +130,10 @@ namespace gatheringstringdatafromadoc
             for (int i = 0; i < DaysOfTheWeek.Count; i++)
             {
                 currentFileContent = readTxtFile( @"Days\" + DaysOfTheWeek[i] + ".txt" );
-                subStrCounter = SeperateString( currentFileContent, "SANDWICH CHOICE" );
+                subStrCounter = CountToCondition( currentFileContent, "\r\nSANDWICH CHOICE" );
                 currentFileContent = currentFileContent.Substring(0, subStrCounter);
                 writeTxtFile(@"Days\" + DaysOfTheWeek[i] + "_LUNCH" + ".txt", currentFileContent);
+                
             }
 
       
@@ -174,7 +174,7 @@ namespace gatheringstringdatafromadoc
 
   
         // generates how long different substrings will be based on a specfic condition
-       private static int SeperateString(string str , char condition)
+       private static int CountToConditon(string str , char condition)
         {
             int counter = 0;
             char[] c = str.ToCharArray();
@@ -194,9 +194,8 @@ namespace gatheringstringdatafromadoc
             return counter;
         }
 
-
         // overload method for SeperateString that evaluates the condition as a string and not a char
-       private static int SeperateString(string str, string condition)
+       private static int CountToCondition(string str, string condition)
        {
            int accum = 0;
            string[] words = str.Split(' ');
@@ -205,18 +204,20 @@ namespace gatheringstringdatafromadoc
            for (int i = 0; i < words.Length; i++)
            {
                string breakConditon = words[i] + " " + words[i + 1];
-               breakConditon = RemoveBreakChars(breakConditon);
+              
 
-               if ( breakConditon != condition )
-               {
+             
                    accum += words[i].Length;
+
+                   if (breakConditon == condition)
+                   {
+                       accum = accum + breakConditon.Length;
+                       break;
+                   }              
+                         
+                   
                }
-               else
-               {
-                   accum += words[i].Length;
-                   break;
-               }
-           }
+           
 
            return accum;
        }
@@ -231,9 +232,26 @@ namespace gatheringstringdatafromadoc
                {
                    s += c[i];
                }
+            
            }
 
            return s;
+       }
+
+        private static int CountBreakCharacters(string s)
+       {
+           int counter = 0;
+           char[] c = s.ToCharArray();
+
+           for (int i = 0; i < s.Length; i++)
+           {
+               if (c[i] == '\r' || c[i] == '\n')
+               {
+                   counter++;
+               }   
+           }
+
+           return counter;
        }
 
 
